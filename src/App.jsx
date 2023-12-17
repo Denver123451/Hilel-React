@@ -40,7 +40,7 @@ function App() {
   return (
     <>
       <h1>My curses</h1>
-      <Card items={cources} />;
+      <Card items={cources} />
     </>
   );
 }
