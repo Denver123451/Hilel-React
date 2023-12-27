@@ -1,20 +1,17 @@
-import Counter from "./Components/Counter.jsx";
 import { useState } from "react";
+import ToDos from "./Components/To-Dos.jsx";
 
 function App() {
   const [isCounterOpen, setIsCounterOpen] = useState(false);
 
   return (
     <>
-      <h1>My counter</h1>
+      <h1>My to-do list</h1>
 
-      {isCounterOpen ? (
-        <Counter />
-      ) : (
-        <button onClick={() => setIsCounterOpen(!isCounterOpen)}>
-          Show counter
-        </button>
-      )}
+      {isCounterOpen ? <ToDos /> : ""}
+      <button onClick={() => setIsCounterOpen(!isCounterOpen)}>
+        Show to-do list
+      </button>
     </>
   );
 }
