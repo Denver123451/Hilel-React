@@ -1,5 +1,4 @@
 const ToDo = ({ todo }) => {
-  console.log(todo);
   return (
     <li>
       <h2>{todo.title}</h2>

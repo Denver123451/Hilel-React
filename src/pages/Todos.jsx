@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ToDo from "./To-do.jsx";
+import ToDo from "../Components/ToDo.jsx";
 
 const ToDos = () => {
   const [todos, setTodos] = useState([]);
