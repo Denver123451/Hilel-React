@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ToDo from "../Components/ToDo.jsx";
+import { SwitchContext } from "../Components/context/ToogleContext.jsx";
 
 const ToDos = () => {
+  const { value, onChange } = useContext(SwitchContext);
+
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -27,11 +30,16 @@ const ToDos = () => {
   return (
     <>
       <h2>My Todos</h2>
-      <ul>
-        {todos.map((todo) => (
-          <ToDo key={todo.id} todo={todo}></ToDo>
-        ))}
-      </ul>
+      <button onClick={() => onChange(!value)}>Open page</button>
+      <div>
+        {value && (
+          <ul>
+            {todos.map((todo) => (
+              <ToDo key={todo.id} todo={todo}></ToDo>
+            ))}
+          </ul>
+        )}
+      </div>
     </>
   );
 };

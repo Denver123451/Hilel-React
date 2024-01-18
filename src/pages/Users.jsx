@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { SwitchContext } from "../Components/context/ToogleContext.jsx";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+
+  const { value, onChange } = useContext(SwitchContext);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -27,20 +30,25 @@ const Users = () => {
   return (
     <>
       <h2> Users page</h2>
+      <button onClick={() => onChange(!value)}>Open page</button>
       <div>
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              <Link to={`${user.id}`}>
-                <h3>User name {user.name}</h3>
-                <div>
-                  {user.username} <br></br>
-                  {user.email}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {value && (
+          <div>
+            <ul>
+              {users.map((user) => (
+                <li key={user.id}>
+                  <Link to={`${user.id}`}>
+                    <h3>User name {user.name}</h3>
+                    <div>
+                      {user.username} <br></br>
+                      {user.email}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </>
   );

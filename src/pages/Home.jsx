@@ -1,13 +1,34 @@
 import { useContext } from "react";
 import { SiteContext } from "../Components/context/SiteInfoContext.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { increment, decrement, reset } from "../redux/slices/counterSlice.js";
 
 const Home = () => {
   const data = useContext(SiteContext);
+  const dispatch = useDispatch();
+  const counterData = useSelector((state) => state.counter);
+
+  console.log(counterData);
+
+  const handelIncrement = () => {
+    dispatch(increment());
+  };
+  const handelDecrement = () => {
+    dispatch(decrement());
+  };
+  const handelReset = () => {
+    dispatch(reset());
+  };
+
   return (
     <>
-      <p>Site made: {data.dataOfPublic}</p>
-      <h2>This is our main page!</h2>
-      <p>What did you expect?</p>
+      <p>Today: {data.dataOfPublic}</p>
+      <h2>Main counter of Ukraine!</h2>
+      <div>Muscovites have already died: {counterData.counter}</div>
+
+      <button onClick={handelIncrement}>+</button>
+      <button onClick={handelDecrement}>-</button>
+      <button onClick={handelReset}>Reset</button>
     </>
   );
 };

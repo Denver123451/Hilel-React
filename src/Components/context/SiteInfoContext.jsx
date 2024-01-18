@@ -11,9 +11,6 @@ const SiteInfoContext = ({ children }) => {
       day: "numeric",
     }),
   };
-
-  console.log(SiteInfo.dataOfPublic);
-
   return (
     <SiteContext.Provider value={SiteInfo}>{children}</SiteContext.Provider>
   );
