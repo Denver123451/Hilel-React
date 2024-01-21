@@ -1,31 +1,20 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import ToDo from "../Components/ToDo.jsx";
 import { SwitchContext } from "../Components/context/ToogleContext.jsx";
+import useFetch from "../hooks/useFetch.jsx";
 
 const ToDos = () => {
   const { value, onChange } = useContext(SwitchContext);
 
-  const [todos, setTodos] = useState([]);
+  const {
+    data: todos,
+    isError,
+    isLoading,
+  } = useFetch("https://jsonplaceholder.typicode.com/posts");
 
-  useEffect(() => {
-    const getTodos = async () => {
-      try {
-        const resoult = await fetch(
-          "https://jsonplaceholder.typicode.com/posts",
-        );
-
-        if (!resoult.ok) {
-          throw new Error("failed to fetch");
-        }
-
-        const data = await resoult.json();
-        setTodos(data);
-      } catch (e) {
-        console.log(e.massage);
-      }
-    };
-    getTodos();
-  }, []);
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <>
@@ -33,11 +22,13 @@ const ToDos = () => {
       <button onClick={() => onChange(!value)}>Open page</button>
       <div>
         {value && (
-          <ul>
-            {todos.map((todo) => (
-              <ToDo key={todo.id} todo={todo}></ToDo>
-            ))}
-          </ul>
+          <div>
+            {isError && <div>Failed to fetch data</div>}
+            <ul>
+              {!!todos &&
+                todos.map((todo) => <ToDo key={todo.id} todo={todo}></ToDo>)}
+            </ul>
+          </div>
         )}
       </div>
     </>
